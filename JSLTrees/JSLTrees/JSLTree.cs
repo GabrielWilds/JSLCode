@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace JSLTrees
 {
@@ -60,7 +61,7 @@ namespace JSLTrees
 
         public void DisplayTree(JSLTree tree)
         {
-            TreeExamination(tree, tree.Root, 0);
+            GetTreeHeight(tree.Root, 0);
             List<int[]> list = new List<int[]>();
 
             int arraySize = 1;
@@ -70,8 +71,8 @@ namespace JSLTrees
                 arraySize += arraySize;
             }
 
-            TreeRecursion(Root, list, 0, 0, 0);
-            RenderTree(list);
+            //TreeRecursion(Root, list, 0, 0, 0);
+            //RenderTree(list);
         }
 
         static void RenderTree(List<int[]> list)
@@ -95,7 +96,7 @@ namespace JSLTrees
                     else if (list[i][x] > 9999)
                         lineLength = 5;
 
-                    for(int y = 0; y < (bufferSize - lineLength); y++)
+                    for (int y = 0; y < (bufferSize - lineLength); y++)
                         currentLine.Append(' ');
                     currentLine.Append(list[i][x].ToString());
                     treeOutput[i] = currentLine.ToString();
@@ -110,46 +111,58 @@ namespace JSLTrees
             }
         }
 
-        static void TreeExamination(JSLTree tree, JSLTreeNode curNode, int layerCount)
+        public void GetTreeHeight(JSLTreeNode curNode, int layerCount)
         {
             if (curNode.Left != null)
             {
                 layerCount++;
-                TreeExamination(tree, curNode.Left, layerCount);
+                GetTreeHeight(curNode.Left, layerCount);
             }
-            else if (layerCount > tree.TreeLength)
-                tree.TreeLength = layerCount;
+            else if (layerCount > TreeLength)
+                TreeLength = layerCount;
             if (curNode.Right != null)
             {
                 layerCount++;
-                TreeExamination(tree, curNode.Right, layerCount);
+                GetTreeHeight(curNode.Right, layerCount);
             }
-            else if (layerCount > tree.TreeLength)
-                tree.TreeLength = layerCount;
+            else if (layerCount > TreeLength)
+                TreeLength = layerCount;
         }
 
-        static void TreeRecursion(JSLTreeNode curNode, List<int[]> list, int layerCount, int leftCount, int rightCount)
+        public void GetTreeNodePosInfo(JSLTreeNode curNode, List<List<NodePositionInfo>> list, int curPos, int curLayer)
         {
-            int position = rightCount - leftCount;
-            if (position < 0)
-                position = 0;
-
-            list[layerCount][position] = curNode.Value;
-            layerCount++;
+            NodePositionInfo info = new NodePositionInfo(curPos, curNode.Value.ToString());
+            list[curLayer].Add(info);
 
             if (curNode.Left != null)
             {
-                leftCount++;
-                TreeRecursion(curNode.Left, list, layerCount, leftCount, rightCount);
+                GetTreeNodePosInfo(curNode.Left, list, curPos - 2 ^ (list.Count - curLayer - 1), curLayer + 1);
             }
 
             if (curNode.Right != null)
             {
-                rightCount++;
-                TreeRecursion(curNode.Right, list, layerCount, leftCount, rightCount);
+                GetTreeNodePosInfo(curNode.Right, list, curPos + 2 ^ (list.Count - curLayer - 1), curLayer + 1);
             }
         }
 
+        public void OutputTreeToText(List<List<NodePositionInfo>> list)
+        {
+            String[] layers = new String[list.Count];
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int x = 0; x < list[i].Count; x++)
+                {
+                    StringBuilder layerPadded = new StringBuilder();
+                    for (int y = 0; y < list[x][y].Position; y++)
+                        layerPadded.Append('\t');
+                    layerPadded.Append(list[i][x].NodeValue);
+                    
+                    layers[i] = layerPadded.ToString();
+                }
+            }
+
+            File.WriteAllLines("tree.txt", layers);
+        }
 
     }
 }

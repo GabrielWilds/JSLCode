@@ -5,3 +5,6 @@ D:\Documents and Settings\JSL\Local Settings\Application Data\Temporary Projects
 D:\Documents and Settings\JSL\Local Settings\Application Data\Temporary Projects\JSLTrees\obj\x86\Debug\JSLTrees.pdb
 D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\JSLTrees\JSLTrees\obj\x86\Debug\JSLTrees.exe
 D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\JSLTrees\JSLTrees\obj\x86\Debug\JSLTrees.pdb
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\JSLTrees\JSLTrees\bin\Debug\JSLTrees.exe
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\JSLTrees\JSLTrees\bin\Debug\JSLTrees.pdb
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\JSLTrees\JSLTrees\obj\x86\Debug\ResolveAssemblyReference.cache

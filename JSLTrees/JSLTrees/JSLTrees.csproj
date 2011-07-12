@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="JSLTree.cs" />
     <Compile Include="JSLTreeNode.cs" />
+    <Compile Include="NodePositionInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
