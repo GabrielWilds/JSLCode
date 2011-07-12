@@ -9,19 +9,14 @@ namespace JSLTrees
     {
         static void Main(string[] args)
         {
-            int[] treeNumbers = new int[] { 15, 8, 22, 6, 55, 12, 19 };
+            int[] treeNumbers = new int[] { 15, 8, 22, 6, 55, 12, 19, 1, 34, 67, 2, 1111 };
             JSLTree tree = new JSLTree();
             for (int i = 0; i < treeNumbers.Length; i++)
                 tree.Add(treeNumbers[i]);
 
-            tree.GetTreeHeight(tree.Root, 0);
-            NodePositionInfo rootInfo = new NodePositionInfo(2 ^ (tree.TreeLength - 1), tree.Root.Value.ToString());
-            List<List<NodePositionInfo>> list = new List<List<NodePositionInfo>>();
-            for (int i = 0; i < tree.TreeLength; i++)
-                list.Add(new List<NodePositionInfo>());
-            list[0].Add(rootInfo);
-            tree.GetTreeNodePosInfo(tree.Root.Left, list, 0, 0);
-            tree.OutputTreeToText(list);
+            var value = tree.GetTreeNodePosInfo();
+            tree.OutputTreeToText(value);
+
             Console.WriteLine("Done!");
             Console.ReadKey();
         }
