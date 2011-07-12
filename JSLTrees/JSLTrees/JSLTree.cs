@@ -103,8 +103,10 @@ namespace JSLTrees
             UpdateTreeHeight();
             NodePositionInfo rootInfo = new NodePositionInfo((int)Math.Pow(2, this.TreeLength - 1), this.Root.Value.ToString());
             List<List<NodePositionInfo>> list = new List<List<NodePositionInfo>>();
+
             for (int i = 0; i < this.TreeLength; i++)
                 list.Add(new List<NodePositionInfo>());
+
             list[0].Add(rootInfo);
 
             this.GetTreeNodePosInfoRecursive(this.Root.Left, list, GetChildPosition(list.Count, rootInfo.Position, 0, true), 1);
