@@ -59,6 +59,12 @@ namespace JSLTrees
             }
         }
 
+        public void Add(int[] content)
+        {
+            for(int i = 0; i < content.Length; i++)
+                Add(content[i]);
+        }
+
         public void DisplayTree(JSLTree tree)
         {
             UpdateTreeHeightRecursive(tree.Root, 0);
@@ -79,18 +85,15 @@ namespace JSLTrees
 
         private void UpdateTreeHeightRecursive(JSLTreeNode curNode, int layerCount)
         {
+            layerCount++;
+
             if (curNode.Left != null)
-            {
-                layerCount++;
                 UpdateTreeHeightRecursive(curNode.Left, layerCount);
-            }
             else if (layerCount > TreeLength)
                 TreeLength = layerCount;
+
             if (curNode.Right != null)
-            {
-                layerCount++;
                 UpdateTreeHeightRecursive(curNode.Right, layerCount);
-            }
             else if (layerCount > TreeLength)
                 TreeLength = layerCount;
         }
@@ -116,14 +119,11 @@ namespace JSLTrees
             list[curLayer].Add(info);
 
             if (curNode.Left != null)
-            {
                 GetTreeNodePosInfoRecursive(curNode.Left, list, GetChildPosition(list.Count, curPos, curLayer, true), curLayer + 1);
-            }
 
             if (curNode.Right != null)
-            {
                 GetTreeNodePosInfoRecursive(curNode.Right, list, GetChildPosition(list.Count, curPos, curLayer, false), curLayer + 1);
-            }
+
         }
 
         private int GetChildPosition(int treeHeight, int curPosition, int curLayer, bool isLeftChild)
@@ -141,6 +141,7 @@ namespace JSLTrees
         public void OutputTreeToText(List<List<NodePositionInfo>> list)
         {
             String[] layers = new String[list.Count];
+
             for (int i = 0; i < list.Count; i++)
             {
                 for (int x = 0; x < list[i].Count; x++)
