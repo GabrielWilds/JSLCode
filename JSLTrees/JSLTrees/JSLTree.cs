@@ -61,7 +61,7 @@ namespace JSLTrees
 
         public void Add(int[] content)
         {
-            for(int i = 0; i < content.Length; i++)
+            for (int i = 0; i < content.Length; i++)
                 Add(content[i]);
         }
 
@@ -111,7 +111,7 @@ namespace JSLTrees
 
             this.GetTreeNodePosInfoRecursive(this.Root.Left, list, GetChildPosition(list.Count, rootInfo.Position, 0, true), 1);
             this.GetTreeNodePosInfoRecursive(this.Root.Right, list, GetChildPosition(list.Count, rootInfo.Position, 0, false), 1);
-            
+
             return list;
         }
 
@@ -155,10 +155,10 @@ namespace JSLTrees
                         relativePosition = relativePosition - list[i][x - 1].Position;
 
                     for (int y = 0; y < relativePosition; y++)
-                        layerPadded.Append(' ');
+                        layerPadded.Append("  ");
 
                     layerPadded.Append(list[i][x].NodeValue);
-                    
+
                     layers[i] += layerPadded.ToString();
                 }
             }
@@ -166,5 +166,72 @@ namespace JSLTrees
             File.WriteAllLines("tree.txt", layers);
         }
 
+        public void BalanceTree()
+        {
+            BalanceSubTree(Root);
+        }
+
+        public int BalanceSubTree(JSLTreeNode node)
+        {
+
+            int LeftCount = 0;
+            if (node.Left != null)
+                LeftCount = BalanceSubTree(node.Left);
+
+            int RightCount = 0;
+            if (node.Right != null)
+                RightCount = BalanceSubTree(node.Right);
+
+            bool balanced = false;
+
+            if (node.Left != null && node.Right != null)
+            {
+                while (!balanced)
+                {
+                    if (node.Left.Right != null)
+                    {
+                        if (LeftCount - RightCount > 1)
+                            RotateRight(node);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    if (node.Right.Left != null)
+                    {
+                        if (RightCount - LeftCount > 1)
+                            RotateLeft(node);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    if (LeftCount - RightCount < 1 && RightCount - RightCount < 1)
+                        balanced = true;
+                }
+            }
+
+            return LeftCount + RightCount + 1;
+        }
+
+        public void RotateRight(JSLTreeNode rootNode)
+        {
+            //counter clockwise
+            JSLTreeNode newRoot = rootNode.Left;
+            rootNode.Left = newRoot.Right;
+            newRoot.Right = rootNode;
+            rootNode = newRoot;
+        }
+
+        public void RotateLeft(JSLTreeNode rootNode)
+        {
+            //clockwise
+            JSLTreeNode newRoot = rootNode.Right;
+            rootNode.Right = newRoot.Left;
+            newRoot.Left = rootNode;
+            rootNode = newRoot;
+        }
     }
 }
