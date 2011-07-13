@@ -7,12 +7,19 @@ namespace JSLTrees
 {
     class JSLTreeNode
     {
-        public JSLTreeNode(int content)
+        public JSLTreeNode(int content, JSLTreeNode parent)
         {
             Value = content;
+            Parent = parent;
         }
 
         public int Value
+        {
+            get;
+            set;
+        }
+
+        public JSLTreeNode Parent
         {
             get;
             set;

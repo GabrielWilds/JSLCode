@@ -9,7 +9,7 @@ namespace JSLTrees
     {
         static void Main(string[] args)
         {
-            int[] treeNumbers = new int[] { 15, 8, 22, 6, 55, 12, 19, 1, 34, 67, 2, 1111, 9, 10, 11, 13 };
+            int[] treeNumbers = new int[] { 15, 8, 22, 6, 55, 12, 19, 1, 34, 67, 2, 1111, 10, 9, 11, 13 };
             JSLTree tree = new JSLTree();
             tree.Add(treeNumbers);
 
