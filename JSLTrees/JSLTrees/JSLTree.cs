@@ -12,6 +12,7 @@ namespace JSLTrees
         {
             this.Root = null;
             this.TreeLength = 0;
+            this.TreeUpdateCount = 0;
         }
 
         public JSLTreeNode Root
@@ -21,6 +22,12 @@ namespace JSLTrees
         }
 
         public int TreeLength
+        {
+            get;
+            set;
+        }
+
+        private int TreeUpdateCount
         {
             get;
             set;
@@ -142,6 +149,7 @@ namespace JSLTrees
 
         public void OutputTreeToText(List<List<NodePositionInfo>> list)
         {
+            TreeUpdateCount++;
             String[] layers = new String[list.Count];
 
             for (int i = 0; i < list.Count; i++)
@@ -163,7 +171,7 @@ namespace JSLTrees
                 }
             }
 
-            File.WriteAllLines("tree.txt", layers);
+            File.WriteAllLines("tree" + TreeUpdateCount.ToString() + ".txt", layers);
         }
 
         public void BalanceTree()
@@ -191,7 +199,11 @@ namespace JSLTrees
                     if (node.Left.Right != null)
                     {
                         if (LeftCount - RightCount > 1)
+                        {
                             RotateRight(node);
+                            var value = GetTreeNodePosInfo();
+                            OutputTreeToText(value);
+                        }
                     }
                     else
                     {
