@@ -11,6 +11,7 @@ namespace JSLTrees
         {
             Value = content;
             Parent = parent;
+            Balance = 0;
         }
 
         public int Value
@@ -32,6 +33,12 @@ namespace JSLTrees
         }
 
         public JSLTreeNode Right
+        {
+            get;
+            set;
+        }
+
+        public int Balance
         {
             get;
             set;

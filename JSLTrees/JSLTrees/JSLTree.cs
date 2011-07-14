@@ -47,6 +47,7 @@ namespace JSLTrees
                         if (curNode.Right == null)
                         {
                             curNode.Right = new JSLTreeNode(content, curNode);
+                            curNode.Balance++;
                             break;
                         }
                         else
@@ -57,6 +58,7 @@ namespace JSLTrees
                         if (curNode.Left == null)
                         {
                             curNode.Left = new JSLTreeNode(content, curNode);
+                            curNode.Balance--;
                             break;
                         }
                         else
@@ -190,94 +192,48 @@ namespace JSLTrees
             if (node.Right != null)
                 RightCount = BalanceSubTree(node.Right);
 
-            bool balanced = false;
+            node.Balance = RightCount - LeftCount;
+            Console.WriteLine("Node: " + node.Value.ToString() + ", Node Balance: " + node.Balance.ToString());
 
-            if (node.Left != null && node.Right != null)
+            if (node.Balance > 1 || node.Balance < -1)
             {
-                while (!balanced)
-                {
-                    if (node.Left.Right != null && LeftCount - RightCount > 1)
-                    {
-                        RotateRight(node);
-                        RightCount++;
-                        LeftCount--;
-                        var value = GetTreeNodePosInfo();
-                        OutputTreeToText(value);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    if (node.Right.Left != null && RightCount - LeftCount > 1)
-                    {
-                        RotateLeft(node);
-                        LeftCount++;
-                        RightCount--;
-                        var value = GetTreeNodePosInfo();
-                        OutputTreeToText(value);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    if (LeftCount - RightCount < 1 || RightCount - RightCount < 1)
-                        balanced = true;
-                }
+                var list = GetTreeNodePosInfo();
+                OutputTreeToText(list);
             }
 
-            return LeftCount + RightCount + 1;
+            if (node.Balance > 1)
+                RotateLeft(node);
+            else if (node.Balance < -1)
+                RotateRight(node);
+
+            if (LeftCount > RightCount)
+                return LeftCount + 1;
+            else
+                return RightCount + 1;
         }
 
-        public void RotateRight(JSLTreeNode rootNode)
+        public void RotateRight(JSLTreeNode parentNode)
         {
             //counter clockwise
-            JSLTreeNode newRoot = rootNode.Left;
-            rootNode.Left = newRoot.Right;
-
-            if (newRoot.Right != null)
-                newRoot.Right = rootNode;
-            else
-            {
-                newRoot.Right = new JSLTreeNode(rootNode.Value, newRoot);
-                newRoot.Right.Right = rootNode.Right;
-                newRoot.Right.Left = rootNode.Left;
-            }
-
-            if (rootNode.Parent != null)
-            {
-                if (rootNode.Parent.Right == rootNode)
-                    rootNode.Parent.Right = newRoot;
-                else if (rootNode.Parent.Left == rootNode)
-                    rootNode.Parent.Left = newRoot;
-            }
+            JSLTreeNode newParent = parentNode.Left;
+            parentNode.Left = parentNode.Left.Right;
+            newParent.Right = parentNode;
+            if (parentNode.Parent.Left != parentNode)
+                parentNode.Parent.Right = newParent;
+            else if (parentNode.Parent.Right != parentNode)
+                parentNode.Parent.Left = newParent;
         }
 
-        public void RotateLeft(JSLTreeNode rootNode)
+        public void RotateLeft(JSLTreeNode parentNode)
         {
             //clockwise
-            JSLTreeNode newRoot = rootNode.Right;
-            rootNode.Right = newRoot.Left;
-
-            if (newRoot.Left != null)
-                newRoot.Left = rootNode;
-            else
-            {
-                newRoot.Left = new JSLTreeNode(rootNode.Value, newRoot);
-                newRoot.Left.Left = rootNode.Left;
-                newRoot.Left.Right = rootNode.Right;
-            }
-
-            if (rootNode.Parent != null)
-            {
-                if (rootNode.Parent.Right == rootNode)
-                    rootNode.Parent.Right = newRoot;
-                else if (rootNode.Parent.Left == rootNode)
-                    rootNode.Parent.Left = newRoot;
-            }
-            else
-                rootNode = newRoot;
+            JSLTreeNode newParent = parentNode.Right;
+            parentNode.Right = parentNode.Right.Left;
+            newParent.Left = parentNode;
+            if (parentNode.Parent.Left != parentNode)
+                parentNode.Parent.Right = newParent;
+            else if (parentNode.Parent.Right != parentNode)
+                parentNode.Parent.Left = newParent;
         }
     }
 }

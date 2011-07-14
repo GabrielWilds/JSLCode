@@ -17,6 +17,7 @@ namespace JSLTrees
             tree.OutputTreeToText(value);
             Console.WriteLine("Check file now. Press Any Key.");
             Console.ReadKey();
+            Console.Clear();
 
             tree.BalanceTree();
             var value2 = tree.GetTreeNodePosInfo();
