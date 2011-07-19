@@ -9,11 +9,11 @@ namespace JSLTrees
     {
         static void Main(string[] args)
         {
-            Random random = new Random();          
-            //int[] treeNumbers = new int[] { 15, 8, 22, 6, 55, 12, 19, 1, 34, 67, 2, 1111, 10, 9, 11, 13 };
-            int[] treeNumbers = new int[100];
-            for(int i = 0; i < treeNumbers.Length; i++)
-                treeNumbers[i] = random.Next(10,1000);
+            Random random = new Random();
+            int[] treeNumbers = new int[] { 10, 5, 8, 11, 4, 3, 20 };
+            //int[] treeNumbers = new int[100];
+            //for(int i = 0; i < treeNumbers.Length; i++)
+            //    treeNumbers[i] = random.Next(10,1000);
 
             JSLTree tree = new JSLTree();
             tree.Add(treeNumbers);
@@ -25,8 +25,6 @@ namespace JSLTrees
             //Console.Clear();
 
             //tree.BalanceTree();
-            var value2 = tree.GetTreeNodePosInfo();
-            tree.OutputTreeToText(value2);
 
             Console.WriteLine("Done!");
             Console.ReadKey();

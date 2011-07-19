@@ -66,6 +66,8 @@ namespace JSLTrees
                     }
                 }
             }
+            var list = GetTreeNodePosInfo();
+            OutputTreeToText(list);
             BalanceTree();
         }
 
@@ -200,14 +202,10 @@ namespace JSLTrees
 
             if (node.Balance > 1 || node.Balance < -1)
             {
+                RotateNode(node);
                 var list = GetTreeNodePosInfo();
                 OutputTreeToText(list);
             }
-
-            if (node.Balance > 1)
-                RotateLeft(node);
-            else if (node.Balance < -1)
-                RotateRight(node);
 
             if (LeftCount > RightCount)
                 return LeftCount + 1;
@@ -215,37 +213,120 @@ namespace JSLTrees
                 return RightCount + 1;
         }
 
-        public void RotateRight(JSLTreeNode parentNode)
+        private void RotateNode(JSLTreeNode Node)
+        {
+                if (Node.Balance > 1)
+                {
+                    if (Node.Right.Balance < 0 && Node.Right.Left != null)
+                        RotateFromRightLeft(Node);
+                    else
+                        RotateFromRightRight(Node);
+                }
+                else if (Node.Balance < -1)
+                {
+                    if (Node.Left.Balance > 0 && Node.Left.Right != null)
+                        RotateFromLeftRight(Node);
+                    else
+                        RotateFromLeftLeft(Node);
+                }
+        }
+
+        private void RotateFromLeftLeft(JSLTreeNode curNode)
         {
             //counter clockwise
-            JSLTreeNode newParent = parentNode.Left;
-            parentNode.Left = parentNode.Left.Right;
-            newParent.Right = parentNode;
-            if (parentNode.Parent != null)
+            JSLTreeNode newParent = curNode.Left;
+            curNode.Left = curNode.Left.Right;
+            newParent.Right = curNode;
+            if (curNode.Parent != null)
             {
-                if (parentNode.Parent.Left != parentNode)
-                    parentNode.Parent.Right = newParent;
-                else if (parentNode.Parent.Right != parentNode)
-                    parentNode.Parent.Left = newParent;
+                if (curNode.Parent.Left != curNode)
+                    curNode.Parent.Right = newParent;
+                else if (curNode.Parent.Right != curNode)
+                    curNode.Parent.Left = newParent;
             }
-            else if (parentNode.Parent == null)
+            else if (curNode.Parent == null)
                 Root = newParent;
         }
 
-        public void RotateLeft(JSLTreeNode parentNode)
+        private void RotateFromLeftRight(JSLTreeNode curNode)
+        {
+            //counter clockwise, with the parent's left's right child becoming the new parent.
+            JSLTreeNode newParent = new JSLTreeNode(curNode.Left.Right.Value, curNode.Parent);
+            newParent.Left = curNode.Left;
+            newParent.Right = curNode;
+
+            bool LeftRightLeftNull = false;
+            if (curNode.Left.Right.Left != null)
+                newParent.Left.Right = curNode.Left.Right.Left;
+            else
+                LeftRightLeftNull = true;
+
+            if (curNode.Left.Right.Right != null)
+                newParent.Right.Left = curNode.Left.Right.Right;
+            else
+                newParent.Right.Left = null;
+
+            if (LeftRightLeftNull)
+                newParent.Left.Right = null;
+
+            if (curNode.Parent != null)
+            {
+                if (curNode.Parent.Left != curNode)
+                    curNode.Parent.Right = newParent;
+                else if (curNode.Parent.Right != curNode)
+                    curNode.Parent.Left = newParent;
+            }
+            else if (curNode.Parent == null)
+                Root = newParent;
+        }
+
+        private void RotateFromRightRight(JSLTreeNode curNode)
         {
             //clockwise
-            JSLTreeNode newParent = parentNode.Right;
-            parentNode.Right = parentNode.Right.Left;
-            newParent.Left = parentNode;
-            if (parentNode.Parent != null)
+            JSLTreeNode newParent = curNode.Right;
+            curNode.Right = curNode.Right.Left;
+            newParent.Left = curNode;
+
+            if (curNode.Parent != null)
             {
-                if (parentNode.Parent.Left != parentNode)
-                    parentNode.Parent.Right = newParent;
-                else if (parentNode.Parent.Right != parentNode)
-                    parentNode.Parent.Left = newParent;
+                if (curNode.Parent.Left != curNode)
+                    curNode.Parent.Right = newParent;
+                else if (curNode.Parent.Right != curNode)
+                    curNode.Parent.Left = newParent;
             }
-            else if (parentNode.Parent == null)
+            else if (curNode.Parent == null)
+                Root = newParent;
+        }
+
+        private void RotateFromRightLeft(JSLTreeNode curNode)
+        {
+            //clockwise, with the parent's right's left child becoming the new parent.
+            JSLTreeNode newParent = new JSLTreeNode(curNode.Right.Left.Value, curNode.Parent);
+            newParent.Left = curNode;
+            newParent.Right = curNode.Right;
+
+            bool RightLeftRightNull = false;
+            if (curNode.Right.Left.Right != null)
+                newParent.Right.Left = curNode.Right.Left.Right;
+            else
+                RightLeftRightNull = true;
+
+            if (curNode.Right.Left.Left != null)
+                curNode.Right = curNode.Right.Left.Left;
+            else
+                curNode.Right = null;
+
+            if (RightLeftRightNull)
+                newParent.Right.Left = null;
+
+            if (curNode.Parent != null)
+            {
+                if (curNode.Parent.Left != curNode)
+                    curNode.Parent.Right = newParent;
+                else if (curNode.Parent.Right != curNode)
+                    curNode.Parent.Left = newParent;
+            }
+            else if (curNode.Parent == null)
                 Root = newParent;
         }
     }
