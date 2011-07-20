@@ -53,7 +53,7 @@ namespace JSLTrees
                         else
                             curNode = curNode.Right;
                     }
-                    else
+                    else if (curNode.Value > content)
                     {
                         if (curNode.Left == null)
                         {
@@ -64,11 +64,16 @@ namespace JSLTrees
                         else
                             curNode = curNode.Left;
                     }
+                    else
+                    {
+                        Console.WriteLine("Duplicate number. Ignoring it.");
+                        break;
+                    }
                 }
             }
             var list = GetTreeNodePosInfo();
-            OutputTreeToText(list);
-            BalanceTree();
+            //OutputTreeToText(list);
+            //BalanceTree();
         }
 
         public void Add(int[] content)
@@ -120,6 +125,7 @@ namespace JSLTrees
                 list.Add(new List<NodePositionInfo>());
 
             list[0].Add(rootInfo);
+            Console.WriteLine("Node " + this.Root.Value.ToString() + ", Balance " + this.Root.Balance.ToString());
 
             if (this.Root.Left != null)
                 this.GetTreeNodePosInfoRecursive(this.Root.Left, list, GetChildPosition(list.Count, rootInfo.Position, 0, true), 1);
@@ -131,6 +137,7 @@ namespace JSLTrees
 
         private void GetTreeNodePosInfoRecursive(JSLTreeNode curNode, List<List<NodePositionInfo>> list, int curPos, int curLayer)
         {
+            Console.WriteLine("Node " + curNode.Value.ToString() + ", Balance " + curNode.Balance.ToString());
             NodePositionInfo info = new NodePositionInfo(curPos, curNode.Value.ToString());
             list[curLayer].Add(info);
 
@@ -203,8 +210,9 @@ namespace JSLTrees
             if (node.Balance > 1 || node.Balance < -1)
             {
                 RotateNode(node);
-                var list = GetTreeNodePosInfo();
-                OutputTreeToText(list);
+                //var list = GetTreeNodePosInfo();
+                //OutputTreeToText(list);
+                BalanceSubTree(node);
             }
 
             if (LeftCount > RightCount)
