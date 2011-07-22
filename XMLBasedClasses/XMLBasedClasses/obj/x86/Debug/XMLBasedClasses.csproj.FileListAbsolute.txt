@@ -1,0 +1,5 @@
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\XMLBasedClasses\XMLBasedClasses\bin\Debug\XMLBasedClasses.exe
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\XMLBasedClasses\XMLBasedClasses\bin\Debug\XMLBasedClasses.pdb
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\XMLBasedClasses\XMLBasedClasses\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\XMLBasedClasses\XMLBasedClasses\obj\x86\Debug\XMLBasedClasses.exe
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\XMLBasedClasses\XMLBasedClasses\obj\x86\Debug\XMLBasedClasses.pdb

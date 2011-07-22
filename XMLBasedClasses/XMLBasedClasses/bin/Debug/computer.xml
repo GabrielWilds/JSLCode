@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Computer>
+	<Case brand="SIGMA" size="Full ATX Tower" color="Black">
+		<motherboard name="mobo" type="miniATX" socket="LGA775" ram="DDR2" ramslots="2"/>
+		<processor name="Pentium Dual Core" brand="Intel" socket="LGA775" speed="3.2Ghz" 	cooling="stock heatsink + fan"/>
+		<ram type="DDR2" stickcount="2" totalcapacity="2GB"/>
+		<videocard type="AMD Radeon" brand="HD4670" socket="PCI-E x16" vram="1GB" cooling="coolermaster heatsink + fan"/>
+		<diskdrive type="CD-RW" brand="Dell" quality="shit"/>
+		<fan>
+			<fan size="80mm"/>
+			<fan size="80mm"/>
+			<fan size="80mm">
+				<LED color="blue" brightness="Totally annoying at night"/>
+			</fan>
+		</fan>
+	</Case>
+</Computer>
