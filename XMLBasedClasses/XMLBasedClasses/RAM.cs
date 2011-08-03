@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class RAM
     {
-        public RAM(int stickcount, string slot, int capacityinGB)
+        public RAM(XmlAttributeCollection attributes)
         {
-            NumSticks = stickcount;
-            SlotType = slot;
-            CapacityInGB = capacityinGB;
+            NumSticks = int.Parse(attributes[0].InnerXml);
+            SlotType = attributes[1].InnerXml.ToString();
+            CapacityInGB = int.Parse(attributes[2].InnerXml);
         }
 
         public int NumSticks

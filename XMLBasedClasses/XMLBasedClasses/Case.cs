@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class Case
     {
-        public Case(string brand, string size, string color)
+        public Case(XmlAttributeCollection attributes)
         {
-            Brand = brand;
-            Size = size;
-            Color = color;
+            Brand = attributes[0].InnerXml.ToString();
+            Size = attributes[1].InnerXml.ToString();
+            Color = attributes[2].InnerXml.ToString();
         }
 
         public string Brand

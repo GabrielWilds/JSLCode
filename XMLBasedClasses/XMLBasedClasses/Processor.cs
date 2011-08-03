@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class Processor
     {
-        public Processor(string name, string brand, string socket, decimal speed, string cooling)
+        public Processor(XmlAttributeCollection attributes)
         {
-            Name = name;
-            Brand = brand;
-            Socket = socket;
-            SpeedInGhz = speed;
-            Cooling = cooling;
+            Name = attributes[0].InnerXml.ToString();
+            Brand = attributes[1].InnerXml.ToString();
+            Socket = attributes[2].InnerXml.ToString();
+            SpeedInGhz = decimal.Parse(attributes[3].InnerXml);
+            Cooling = attributes[4].InnerXml.ToString();
         }
 
         public string Name

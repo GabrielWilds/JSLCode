@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class VideoCard
     {
-        public VideoCard(string type, string brand, int vram, string socket, string cooling)
+        public VideoCard(XmlAttributeCollection attributes)
         {
-            Type = type;
-            Brand = brand;
-            VramInMB = vram;
-            SocketType = socket;
-            Cooling = cooling;
+            Type = attributes[0].InnerXml.ToString();
+            Brand = attributes[1].InnerXml.ToString();
+            VramInMB = int.Parse(attributes[2].InnerXml);
+            SocketType = attributes[3].InnerXml.ToString();
+            Cooling = attributes[4].InnerXml.ToString();
         }
 
         public string Type

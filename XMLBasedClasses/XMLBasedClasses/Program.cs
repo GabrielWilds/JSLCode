@@ -15,11 +15,12 @@ namespace XMLBasedClasses
 
             XmlNode node = xmldoc.FirstChild;
 
+            ReadXMLToData(xmldoc);
             //XmlElement fan = xmldoc.CreateElement("fan");
             //fan.SetAttribute("size", "120mm");
             //AddElementToXml(xmldoc.FirstChild, fan, "fan");
-            DisplayAllNodes(node);
-            xmldoc.Save("C:\\computer2.xml");
+            //DisplayAllNodes(node);
+            //xmldoc.Save("C:\\computer2.xml");
             Console.ReadKey();
         }
 
@@ -52,8 +53,8 @@ namespace XMLBasedClasses
         {
             Computer computer = new Computer();
             XmlAttributeCollection attributes = doc.FirstChild.FirstChild.Attributes;
-            computer.Case = new Case(attributes[0].ToString(), attributes[1].ToString(), attributes[2].ToString());
-            //this is going to be annoying to write if I continue along this line of setup. Maybe I shouldn't have this shit needed to be filled out on creation, so I could just loop over this shit? idk, it's almost 1 am. I'm committing this, and going to bed.
+            computer.Case = new Case(attributes);
+            Console.WriteLine(computer.Case.Brand + ", " + computer.Case.Size + ", " + computer.Case.Color);
         }
     }
 }

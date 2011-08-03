@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class DiskDrive
     {
-        public DiskDrive(string type, string brand, string quality)
+        public DiskDrive(XmlAttributeCollection attributes)
         {
-            Type = type;
-            Brand = brand;
-            Quality = quality;
+            Type = attributes[0].InnerXml.ToString();
+            Brand = attributes[1].InnerXml.ToString();
+            Quality = attributes[2].InnerXml.ToString();
         }
 
         public string Type

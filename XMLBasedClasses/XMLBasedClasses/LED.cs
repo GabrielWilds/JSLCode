@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class LED
     {
-        public LED(string color, string brightnessDesc)
+        public LED(XmlAttributeCollection attributes)
         {
-            Color = color;
-            BrightnessDescription = brightnessDesc;
+            Color = attributes[0].InnerXml.ToString();
+            BrightnessDescription = attributes[1].InnerXml.ToString();
         }
 
         public string Color

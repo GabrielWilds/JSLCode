@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class Motherboard
     {
-        public Motherboard(string brand, string size, string socket, string ramtype, int ramslots)
+        public Motherboard(XmlAttributeCollection attributes)
         {
-            Brand = brand;
-            Size = size;
-            CPUSocket = socket;
-            RAMType = ramtype;
-            RAMSlots = ramslots;
+            Brand = attributes[0].InnerXml.ToString();
+            Size = attributes[1].InnerXml.ToString();
+            CPUSocket = attributes[2].InnerXml.ToString();
+            RAMType = attributes[3].InnerXml.ToString();
+            RAMSlots = int.Parse(attributes[4].InnerXml);
         }
 
         public string Brand

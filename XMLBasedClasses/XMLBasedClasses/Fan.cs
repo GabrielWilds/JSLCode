@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace XMLBasedClasses
 {
     class Fan
     {
-        public Fan(int size)
+        public Fan(XmlAttributeCollection attributes)
         {
-            HasLED = false;
-            SizeInMM = size;
-        }
-
-        public Fan(int size, LED led)
-        {
-            HasLED = true;
-            SizeInMM = size;
-            LED = led;
+            SizeInMM = int.Parse(attributes[0].InnerXml);
         }
 
         public bool HasLED
