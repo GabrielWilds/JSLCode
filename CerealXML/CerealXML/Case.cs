@@ -20,6 +20,49 @@ namespace CerealXML
             Brand = reader["brand"];
             Size = reader["size"];
             Color = reader["color"];
+
+            reader.ReadToFollowing("motherboard");
+            Mobo = new Motherboard();
+            Mobo.ReadXml(reader);
+
+            reader.ReadToFollowing("processor");
+            CPU = new Processor();
+            CPU.ReadXml(reader);
+
+            reader.ReadToFollowing("ram");
+            Ram = new RAM();
+            Ram.ReadXml(reader);
+
+            reader.ReadToFollowing("videocard");
+            Videocard = new VideoCard();
+            Videocard.ReadXml(reader);
+
+            reader.ReadToFollowing("diskdrive");
+            Diskdrive = new DiskDrive();
+            Diskdrive.ReadXml(reader);
+
+            reader.ReadToFollowing("fans");
+            while (true)
+            {
+                reader.Read();
+                if (reader.Name == "fan")
+                {
+                    Fan fan = new Fan();
+                    fan.ReadXml(reader);
+                    AddFan(fan);
+                }
+                else if (reader.Name == "LED")
+                {
+                    Fans[Fans.Count - 1].HasLED = true;
+                    LED led = new LED();
+                    led.ReadXml(reader);
+                    Fans[Fans.Count - 1].Led = led;
+                    reader.Read();
+                }
+
+                if (reader.EOF)
+                    break;
+            }
         }
 
         public void WriteXml(XmlWriter writer)

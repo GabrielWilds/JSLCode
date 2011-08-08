@@ -23,7 +23,9 @@ namespace CerealXML
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            reader.ReadToFollowing("case");
+            Case = new Case();
+            Case.ReadXml(reader);
         }
 
         public void WriteXml(XmlWriter writer)
