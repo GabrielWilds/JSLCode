@@ -1,0 +1,5 @@
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\CerealXML\CerealXML\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\CerealXML\CerealXML\bin\Debug\CerealXML.exe
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\CerealXML\CerealXML\bin\Debug\CerealXML.pdb
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\CerealXML\CerealXML\obj\x86\Debug\CerealXML.exe
+D:\Documents and Settings\JSL\my documents\visual studio 2010\Projects\CerealXML\CerealXML\obj\x86\Debug\CerealXML.pdb
